@@ -27,12 +27,14 @@ USER_INFORMATION = {
             "prenom": None,
             "nom": None,
             "date de naissance": None,
+            "lieu de naissance": None,
+            "sexe": None,
             "prenom du père": None,
             "nom de la mère": None,
             "prenom de la mère": None,
             "matricule": None,
             "contact": None,
-            "addresse": None,
+            "adresse": None,
             "classe": [i + 1 for i in range(10)],
         }
 

@@ -13,7 +13,7 @@ class StoreFile(object):
 
         self._modifier = False
 
-    def addListe(self, data):
+    def addListe(self, data: list):
         """
         Description:
         ------------
@@ -24,7 +24,10 @@ class StoreFile(object):
             data : une liste
                 il represent l nouvelle a enregistrer
         """
-        #self._liste.update
+        self._liste[list(self._liste.keys())[0]].append(data)
+        #print((data))
+        #print(self._liste)
+        #print(self._classe_name)
 
     def getListe(self) -> OrderedDict:
         """
@@ -44,6 +47,9 @@ class StoreFile(object):
         ------------
             cette fonction enregistre le 
         """
+        
+        save_data("test.ods", self._liste)
+
 class GNotes(StoreFile):
     """
     Description:
@@ -92,9 +98,29 @@ class GEleve(StoreFile):
     """
 
     def __init__(self, classe: int):
-        classe_name = (f"{ELEVES_REP}/listes/liste {classe} année.ods")
-        super().__init__(classe_name)
+        self._classe_name = (f"{ELEVES_REP}/listes/liste {classe} année.ods")
+        super().__init__(self._classe_name)
     
+    def addListe(self, data: dict):
+        eleve = [
+            len( self._liste[list(self._liste.keys())[0]]) + 1,
+            data['matricule'],
+            data["prenom"],
+            data["nom"],
+            data['sexe'],
+            data["lieu de naissance"],
+            data["date de naissance"],
+            data["prenom du père"],
+            data["nom"],
+            data["prenom de la mère"],
+            data["nom de la mère"],
+            data["contact"],
+            data["adresse"]
+        
+        ]
+        super().addListe(eleve)
+
+        #return super().addListe(data)
 
 #test = GNotes(1)
 

@@ -15,7 +15,7 @@ from desktop.core.config import MATIERE, USER_INFORMATION
 
 from menu.forms import Form
 
-
+DEBUG = 1
 class Eleve(Menu):
     def __init__(self, fenetre, menu:Menu):
         super().__init__(menu)
@@ -47,12 +47,13 @@ class AddStudiant(ItemEleve, GEleve):
         cette class est permet d'ajouter des élèves selon
         leurs class
     """
-    def __init__(self, fenetre, classe) -> None:
+    def __init__(self, fenetre, classe: int) -> None:
 
         ItemEleve.__init__(self, fenetre, classe)
         
         GEleve.__init__(self, classe)
         self._fenetre = fenetre
+        self._classe = classe
         #self._fenetre = Tk()
         self._user_information = USER_INFORMATION
 
@@ -76,6 +77,13 @@ class AddStudiant(ItemEleve, GEleve):
 
         for index, i in enumerate(self._entry_user):
             i.grid(row=index, column=2)
+
+
+        if DEBUG:
+            for i in self._entry_user:
+                i.insert(0, 'Moctar')
+
+        self._entry_user[-1].insert(0, str(self._classe))
 
         valider=Button(add_studiant,text=' valider ', command=self.valider )
         
@@ -112,8 +120,12 @@ class AddStudiant(ItemEleve, GEleve):
             cette fonction permet de valider l'ajoute d'un élève
 
         """
-        for value, key in zip(self._entry_user, self._user_information.keys()):
-            print(key, " : ", value.get())
+        eleve = { key: value.get() for value, key \
+            in zip(self._entry_user, self._user_information.keys())}
+        
+        self.addListe(eleve)
+        self.save()
+
 
     def cli(self):
         """
