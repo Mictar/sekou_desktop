@@ -37,10 +37,25 @@ class StoreFile(object):
     
     def setListe(self, new_liste: OrderedDict):
         """
+        Description:
+        ------------
+            cette fonction change la liste en cours par un nouveau
+            liste
         
+        Parametre:
+        ----------
+            new_liste : un OrderedDict
+                il represente la nouvelle liste
         """
         self._liste = new_liste
     
+    def updateListe(self, values: list, new_values: list):
+        """
+        Description:
+        ------------
+            cette fonction mmet a jour une donnée dans
+            le self._liste
+        """
     def save(self):
         """
         Description:

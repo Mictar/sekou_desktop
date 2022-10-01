@@ -5,7 +5,7 @@ Description:
     button option, presse button
     
 """
-from tkinter import*
+from tkinter import Button
 
 class Button(Button):
     """
@@ -13,6 +13,15 @@ class Button(Button):
     ------------
         cette classe 
     """
+    def get(self):
+        """
+        Description:
+        ------------
+            cette fonction la valeur du boutton et retourne une chaine
+            de caractere
+        """
+
+    def set(self): pass
 
 class OptionButton():
     """

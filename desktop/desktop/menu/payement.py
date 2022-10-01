@@ -1,4 +1,4 @@
-from tkinter import Canvas, Menu, Scrollbar, Tk
+from tkinter import Button, Canvas, Menu, Scrollbar, Tk
 from menu.classes import Classes
 
 from desktop.core.core import GPayement
@@ -48,6 +48,8 @@ class Paye(GPayement, Form):
         #self._fenetre.configure(yscrollcommand=scr.set)
         #scr.place(x = 200, y = 10, height=250)
         self.render(row=1)
+
+        Button(self._fenetre, text="Valider", command= self.getValue).grid(row=0, column=0)
 
 
 class NonPaye(GPayement, Form):

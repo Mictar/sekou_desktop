@@ -4,4 +4,7 @@ Description:
     liste deroulant
 """
 
-from tkinter import *
+from tkinter import Spinbox
+
+class Spinbox(Spinbox):
+    def get(self): pass

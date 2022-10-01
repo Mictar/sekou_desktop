@@ -1,6 +1,7 @@
 
 from tkinter import Checkbutton, Entry, Label, W, Tk, Toplevel
 
+from desktop.composants.checkbuton import Checkbutton
 
 class Form(object):
 
@@ -34,10 +35,13 @@ class Form(object):
         for index, i in enumerate(self._values): self.grid(i, column=index + 2 + column, row= row)
     
     def grid(self, composant, row=0, column=1):
+        """
+        
+        """
         for index, i in enumerate(composant):
             i.grid(row=index + row, column=column, sticky="W")
 
-    def addColumn(self, types="E", text=None):
+    def addColumn(self, types="E", text=None, texts=[]):
         """
         Description:
         ------------
@@ -47,10 +51,13 @@ class Form(object):
         if types == "E":
             self._values.append([Entry(self._fenetre) for i in range(len(self._label))])
         
-        if types == "C":
+        elif types == "C":
             
             self._values.append([Checkbutton(self._fenetre, text=text) for i in range(len(self._label))])
-    
+        
+        elif types == "L":
+            self._values.append([Label(self._fenetre, text=text) for i in texts])
+
     def decalage(initial: int, fin: int):
         """
         Description:
@@ -66,4 +73,8 @@ class Form(object):
             cette fonction retourne les valeurs des champs
 
         """
-        return { key["text"] : value.get() for  value, key in zip(self._entre, self._label)}
+        label = [i["text"] for i in self._label ]
+        data = [ [ y.get() for y in i ]for i in self._values]
+        data.append(label)
+
+        print(data)

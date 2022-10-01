@@ -35,10 +35,27 @@ class Profile(GEleve, Form):
     """
     def __init__(self, fenetre, classe: int):
         GEleve.__init__(self, classe)
+        self._fenetre = fenetre
+
+        liste = (self.getListe())
+
+        label = list()
+
+        for i in liste.values():
+            
+            for y in i: 
+                
+                label.append(" \t".join([str(z) for z in y ]))
+                
+        
+        del label[0]
+        
+        Form.__init__(self, self._fenetre, label)
     
     def view(self):
         """
         """
+        self.render()
 
 class AddStudiant(ItemEleve, GEleve):
     """
@@ -82,7 +99,8 @@ class AddStudiant(ItemEleve, GEleve):
         if DEBUG:
             for i in self._entry_user:
                 i.insert(0, 'Moctar')
-
+            
+        
         self._entry_user[-1].insert(0, str(self._classe))
 
         valider=Button(add_studiant,text=' valider ', command=self.valider )
