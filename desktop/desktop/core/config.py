@@ -43,5 +43,7 @@ MOIS = ["octobre", "novembre", "decembre",
         "mais", "juin"]
 
 MONTANT = {
-        i : 2000 for i in range(1, 10)
+        i : 3500 for i in range(1, 7)
 }
+for i in range(7, 10):
+        MONTANT[i] = 6000

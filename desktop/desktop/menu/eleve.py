@@ -15,7 +15,8 @@ from desktop.core.config import MATIERE, USER_INFORMATION
 
 from menu.forms import Form
 
-DEBUG = 1
+DEBUG = 0
+
 class Eleve(Menu):
     def __init__(self, fenetre, menu:Menu):
         super().__init__(menu)
@@ -42,26 +43,118 @@ class Profile(GEleve, Form):
     def __init__(self, fenetre, classe: int):
         GEleve.__init__(self, classe)
         self._fenetre = fenetre
+        
+        self._classe = classe
+
+        
+        self._user_information = USER_INFORMATION
+
 
         liste = (self.getListe())
 
-        label = list()
+        self.label = list()
+
 
         for i in liste.values():
             
-            for y in i: 
+            for y in i:
+                self.label.append(list(y)) if list(y) else None
                 
-                label.append(" \t".join([str(z) for z in y ]))
+                #self.label.append(" ".join([str(z) for z in y ]))
+
                 
         
-        del label[0]
+        del self.label[0]
+        #print(self.label)
         
-        Form.__init__(self, self._fenetre, label)
+        Form.__init__(self, self._fenetre, [ f"{i[2]} {i[3]}" for i in self.label])
     
     def view(self):
         """
         """
         self.render()
+        self.addColumn()
+
+    def addColumn(self):
+        self._profile = [Button(self.frame, text="voir",
+                                command=self.eleve(i)) for i in self.label]
+
+        for index, i in enumerate(self._profile):
+
+            i.grid(row=index, column=1)
+    
+    def eleve(self, name: list):
+
+        def el():
+            add_studiant =Toplevel(self._fenetre)
+            add_studiant.resizable(0, 0)
+
+            user_len = len(self._user_information.keys())
+
+            label_user = [ Label(add_studiant, 
+                        text=key).grid(row=index, column=1, sticky=W)\
+                for index, key in enumerate(self._user_information.keys())]
+
+            self._entry_user = [ Entry(add_studiant) \
+                for i in range(user_len)]
+
+
+            for index, i in enumerate(self._entry_user):
+                i.grid(row=index, column=2)
+            
+            self._entry_user[-1].insert(0, str(self._classe))
+
+            index = {0: 2, 1 : 3, 2 : 6, 3: 5, 4 : 4,
+                    5: 7, 6: 8, 8 : 1, 7 : 9}
+            
+            for key, value in index.items():
+                self._entry_user[key].insert(0, str(name[value]))
+            
+            valider=Button(add_studiant,text=' valider ',
+                        command=self.valider )
+            
+            selection=Button(add_studiant,text='Selection',
+                            command=self.selection)
+
+            self._cadre = Canvas(add_studiant, 
+                                width =160, height =160, bg ='white')
+            
+            
+            #self._photo = PhotoImage()
+
+            #self.item = self._cadre.create_image(160, 160, image =self._photo)
+            valider.grid(row=12,column=2,padx=2,pady=8)
+
+            self._cadre.grid(row =1, column =3, rowspan =8 ,padx =10, pady =5)
+
+            selection.grid(row=9,column=3, sticky =N)
+        
+        return el
+
+    def selection(self):
+        """
+        Desciption:
+            cette fonction selection une image
+
+        """
+        tof= filedialog.askopenfilename()
+        photo = PhotoImage(file=tof)
+        self._cadre.create_image(160, 160, image= photo)
+
+
+    def valider(self, ):
+        """
+        Description:
+        ------------
+            cette fonction permet de valider l'ajoute d'un élève
+
+        """
+        """eleve = { key: value.get() for value, key \
+            in zip(self._entry_user, self._user_information.keys())}
+        
+        self.addListe(eleve)
+        self.save()"""
+    
 
 class AddStudiant(ItemEleve, GEleve):
     """
@@ -88,6 +181,7 @@ class AddStudiant(ItemEleve, GEleve):
             pour ajouter les élèves
         """
         add_studiant =Toplevel(self._fenetre)
+        
 
         user_len = len(self._user_information.keys())
 
@@ -343,7 +437,7 @@ class Notes(GNotes, Form):
 
         return (data)
 
-class Bulletin(GBulletin):
+class Bulletin(GBulletin, Form):
     """
     Cette classe est charger du rendu des bulletins
     des élèves
@@ -352,7 +446,12 @@ class Bulletin(GBulletin):
         self._fenetre = fenetre
         self._matiere = MATIERE[classe]
         
-        super().__init__(classe)
+        GBulletin.__init__(self, classe)
+
+        self._valide = None
+        self._classe = None
+
+        Form.__init__(self, fenetre)
 
     def view(self):
         """
@@ -360,4 +459,12 @@ class Bulletin(GBulletin):
         ------------
             cette fonction permet d'afficher le bulletin
             des élèves 
+        """
+    
+    def valide(self):
+        """
+        Description:
+        ------------
+            cette fonction enregistres les bulletins
+            des élèves
         """

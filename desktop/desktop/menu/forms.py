@@ -6,7 +6,7 @@ from desktop.composants.cadre import App, ScrollbarFrame
 
 class Form():
     frame = None
-    def __init__(self, fenetre: Tk, champs: list) -> None:
+    def __init__(self, fenetre: Tk, champs: list = None) -> None:
         """
         
         """
@@ -30,9 +30,10 @@ class Form():
         
         self.frame = sbf.scrolled_frame
 
-        
-        for index, i in enumerate(self.champs):
-            Label(self.frame, text=i).grid(row= row + index, column=column)
+        if self.champs:
+
+            for index, i in enumerate(self.champs):
+                Label(self.frame, text=i,).grid(row= row + index, column=column, sticky=W)
         
 
         

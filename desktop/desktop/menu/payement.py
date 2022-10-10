@@ -1,5 +1,5 @@
 from datetime import date
-from tkinter import Button, Canvas, Label, Menu, Scrollbar, Spinbox, Tk, Entry
+from tkinter import Button, Canvas, Label, Menu, Scrollbar, Spinbox, Tk, Entry, Toplevel
 from menu.classes import Classes
 
 from desktop.composants import Checkbutton
@@ -46,6 +46,8 @@ class Paye(GPayement, Form):
         self._valide = None
         self._mois = None
         self._montant = None
+
+        self._exporter = None
 
         #self.colm = None
         
@@ -96,6 +98,8 @@ class Paye(GPayement, Form):
                              command=self.changeEntry )
 
         self._montant = Entry(self.frame)
+
+        self._exporter = Button(self.frame, text="Exporter", command=self.exporter)
         
 
         self._montant.insert(0, MONTANT[self._classe])
@@ -108,10 +112,23 @@ class Paye(GPayement, Form):
 
         Label(self.frame, text="Montant").grid(row=0, column=3)
 
+        self._exporter.grid(row=0, column=4)
+
         for  index, i in enumerate(self._header):
             Label(self.frame, text=i).grid(row=1, column=index)
         
     
+    def exporter(self):
+        """
+        Description:
+        ------------
+            cette fonction permet exporter les contenut des
+            cellules en autres forme de document
+        """
+        top = Toplevel(self._fenetre)
+
+        top.geometry("400x400")
+
     def addColumn(self):
         """
         Description:
@@ -151,7 +168,7 @@ class Paye(GPayement, Form):
 
     def getValue(self) -> list:
         
-        label = [i["text"] for i in self._label ]
+        label = self.label
 
         data = [ [ y.get() for y in i ]for i in self.values]
         data.append(label)

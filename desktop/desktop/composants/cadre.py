@@ -12,6 +12,9 @@ class ScrollbarFrame(tk.Frame):
         # The Scrollbar, layout to the right
         vsb = tk.Scrollbar(self, orient="vertical")
         vsb.pack(side="right", fill="y")
+        
+        hvb = tk.Scrollbar(self, orient="horizontal")
+        hvb.pack(side="bottom", fill="x")
 
         # The Canvas which supports the Scrollbar Interface, layout to the left
         self.canvas = tk.Canvas(self, borderwidth=0, background="#ffffff")
@@ -20,6 +23,9 @@ class ScrollbarFrame(tk.Frame):
         # Bind the Scrollbar to the self.canvas Scrollbar Interface
         self.canvas.configure(yscrollcommand=vsb.set)
         vsb.configure(command=self.canvas.yview)
+
+        self.canvas.configure(xscrollcommand=hvb.set)
+        hvb.configure(command=self.canvas.xview)
 
         # The Frame to be scrolled, layout into the canvas
         # All widgets to be scrolled have to use this Frame as parent
