@@ -1,0 +1,307 @@
+{
+ "header": {
+  "matiere": "Mathematique",
+  "type": "Interrogation",
+  "coefficient": "",
+  "numero": "1",
+  "classe": 7
+ },
+ "data": [
+  {
+   "name": 0,
+   "note": "18"
+  },
+  {
+   "name": 1,
+   "note": "10"
+  },
+  {
+   "name": 2,
+   "note": ""
+  },
+  {
+   "name": 3,
+   "note": ""
+  },
+  {
+   "name": 4,
+   "note": ""
+  },
+  {
+   "name": 5,
+   "note": ""
+  },
+  {
+   "name": 6,
+   "note": ""
+  },
+  {
+   "name": 7,
+   "note": ""
+  },
+  {
+   "name": 8,
+   "note": ""
+  },
+  {
+   "name": 9,
+   "note": "14"
+  },
+  {
+   "name": 10,
+   "note": ""
+  },
+  {
+   "name": 11,
+   "note": ""
+  },
+  {
+   "name": 12,
+   "note": ""
+  },
+  {
+   "name": 13,
+   "note": ""
+  },
+  {
+   "name": 14,
+   "note": ""
+  },
+  {
+   "name": 15,
+   "note": ""
+  },
+  {
+   "name": 16,
+   "note": ""
+  },
+  {
+   "name": 17,
+   "note": ""
+  },
+  {
+   "name": 18,
+   "note": ""
+  },
+  {
+   "name": 19,
+   "note": ""
+  },
+  {
+   "name": 20,
+   "note": ""
+  },
+  {
+   "name": 21,
+   "note": ""
+  },
+  {
+   "name": 22,
+   "note": ""
+  },
+  {
+   "name": 23,
+   "note": ""
+  },
+  {
+   "name": 24,
+   "note": ""
+  },
+  {
+   "name": 25,
+   "note": ""
+  },
+  {
+   "name": 26,
+   "note": ""
+  },
+  {
+   "name": 27,
+   "note": ""
+  },
+  {
+   "name": 28,
+   "note": ""
+  },
+  {
+   "name": 29,
+   "note": ""
+  },
+  {
+   "name": 30,
+   "note": ""
+  },
+  {
+   "name": 31,
+   "note": ""
+  },
+  {
+   "name": 32,
+   "note": ""
+  },
+  {
+   "name": 33,
+   "note": ""
+  },
+  {
+   "name": 34,
+   "note": ""
+  },
+  {
+   "name": 35,
+   "note": ""
+  },
+  {
+   "name": 36,
+   "note": ""
+  },
+  {
+   "name": 37,
+   "note": ""
+  },
+  {
+   "name": 38,
+   "note": ""
+  },
+  {
+   "name": 39,
+   "note": ""
+  },
+  {
+   "name": 40,
+   "note": ""
+  },
+  {
+   "name": 41,
+   "note": ""
+  },
+  {
+   "name": 42,
+   "note": ""
+  },
+  {
+   "name": 43,
+   "note": ""
+  },
+  {
+   "name": 44,
+   "note": ""
+  },
+  {
+   "name": 45,
+   "note": ""
+  },
+  {
+   "name": 46,
+   "note": ""
+  },
+  {
+   "name": 47,
+   "note": ""
+  },
+  {
+   "name": 48,
+   "note": ""
+  },
+  {
+   "name": 49,
+   "note": ""
+  },
+  {
+   "name": 50,
+   "note": ""
+  },
+  {
+   "name": 51,
+   "note": ""
+  },
+  {
+   "name": 52,
+   "note": ""
+  },
+  {
+   "name": 53,
+   "note": ""
+  },
+  {
+   "name": 54,
+   "note": ""
+  },
+  {
+   "name": 55,
+   "note": ""
+  },
+  {
+   "name": 56,
+   "note": ""
+  },
+  {
+   "name": 57,
+   "note": ""
+  },
+  {
+   "name": 58,
+   "note": ""
+  },
+  {
+   "name": 59,
+   "note": ""
+  },
+  {
+   "name": 60,
+   "note": ""
+  },
+  {
+   "name": 61,
+   "note": ""
+  },
+  {
+   "name": 62,
+   "note": ""
+  },
+  {
+   "name": 63,
+   "note": ""
+  },
+  {
+   "name": 64,
+   "note": ""
+  },
+  {
+   "name": 65,
+   "note": ""
+  },
+  {
+   "name": 66,
+   "note": ""
+  },
+  {
+   "name": 67,
+   "note": ""
+  },
+  {
+   "name": 68,
+   "note": ""
+  },
+  {
+   "name": 69,
+   "note": ""
+  },
+  {
+   "name": 70,
+   "note": ""
+  },
+  {
+   "name": 71,
+   "note": ""
+  },
+  {
+   "name": 72,
+   "note": ""
+  },
+  {
+   "name": 73,
+   "note": ""
+  }
+ ]
+}

@@ -15,6 +15,9 @@ class Releve(object):
         """
         
         """
+        self._fenetre = fenetre
+        self._classe = classe
+        
     
     def view(self):
         """

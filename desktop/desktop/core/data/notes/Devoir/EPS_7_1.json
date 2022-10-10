@@ -1,0 +1,307 @@
+{
+ "header": {
+  "matiere": "EPS",
+  "type": "Devoir",
+  "coefficient": "0",
+  "numero": "1",
+  "classe": 7
+ },
+ "data": [
+  {
+   "name": "Satio Traore",
+   "note": "10"
+  },
+  {
+   "name": "Fatoumata Chacka Trore",
+   "note": "20"
+  },
+  {
+   "name": "Amadou Toure",
+   "note": ""
+  },
+  {
+   "name": "Fama Sidibe",
+   "note": ""
+  },
+  {
+   "name": "Fanta Bengaly",
+   "note": ""
+  },
+  {
+   "name": "Dj\u00e9n\u00e8ba Dembele",
+   "note": ""
+  },
+  {
+   "name": "Zoumana Thiero",
+   "note": ""
+  },
+  {
+   "name": "Korotoumou Mariko",
+   "note": ""
+  },
+  {
+   "name": "A\u00efchata Berthe",
+   "note": ""
+  },
+  {
+   "name": "Sira Mariko",
+   "note": ""
+  },
+  {
+   "name": "Aminata Barry",
+   "note": ""
+  },
+  {
+   "name": "Fatoumata D Trore",
+   "note": ""
+  },
+  {
+   "name": "Mariam Diarra",
+   "note": ""
+  },
+  {
+   "name": "Fatoumata M Traore",
+   "note": ""
+  },
+  {
+   "name": "Rokia Sybi",
+   "note": ""
+  },
+  {
+   "name": "Lamine Traore",
+   "note": ""
+  },
+  {
+   "name": "Rokia Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Madiara Traore",
+   "note": ""
+  },
+  {
+   "name": "Mamadou J Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Ibrahima Traore",
+   "note": ""
+  },
+  {
+   "name": "Bareima Lah",
+   "note": ""
+  },
+  {
+   "name": "Adama Coulibaly",
+   "note": ""
+  },
+  {
+   "name": "Mariam Guindo",
+   "note": ""
+  },
+  {
+   "name": "Drissa Diarra",
+   "note": ""
+  },
+  {
+   "name": "Souleymane Traore",
+   "note": ""
+  },
+  {
+   "name": "Zoumana Traore",
+   "note": ""
+  },
+  {
+   "name": "Ousmane Ciss\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Abdoul Aziz Ganame",
+   "note": ""
+  },
+  {
+   "name": "Mariam Sougouna",
+   "note": ""
+  },
+  {
+   "name": "Oumou Zalla",
+   "note": ""
+  },
+  {
+   "name": "Aboubacar Barry",
+   "note": ""
+  },
+  {
+   "name": "Hamadou Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Mamadou Ke\u00efta",
+   "note": ""
+  },
+  {
+   "name": "Abdramane B Ongo\u00efba",
+   "note": ""
+  },
+  {
+   "name": "Yaya Traore",
+   "note": ""
+  },
+  {
+   "name": "Aboubacar Sidiki Bangoura",
+   "note": ""
+  },
+  {
+   "name": "Bocar K\u00e9b\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Saly Sangar\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Aminata Diarra",
+   "note": ""
+  },
+  {
+   "name": "Modibo Togola",
+   "note": ""
+  },
+  {
+   "name": "Fatoumata Mata Toure",
+   "note": ""
+  },
+  {
+   "name": "Batoma Togola",
+   "note": ""
+  },
+  {
+   "name": "Seyba Mamadou Coulibaly",
+   "note": ""
+  },
+  {
+   "name": "Aly Sanogo",
+   "note": ""
+  },
+  {
+   "name": "Mamadou Ly",
+   "note": ""
+  },
+  {
+   "name": "Ibrahim Kaly Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Moussa Djibo",
+   "note": ""
+  },
+  {
+   "name": "Oumar Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Aminata Dembel\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Aminata Djibo",
+   "note": ""
+  },
+  {
+   "name": "Assetou Ke\u00efta",
+   "note": ""
+  },
+  {
+   "name": "Dj\u00e9lika Djibo",
+   "note": ""
+  },
+  {
+   "name": "Aboubacar Bouare",
+   "note": ""
+  },
+  {
+   "name": "Kadia Bamousso Tangara",
+   "note": ""
+  },
+  {
+   "name": "Fatoumata Kalane",
+   "note": ""
+  },
+  {
+   "name": "Daouda Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Ousmane Djibo",
+   "note": ""
+  },
+  {
+   "name": "Fakouma Sininta",
+   "note": ""
+  },
+  {
+   "name": "Dicko Issa Tamboura",
+   "note": ""
+  },
+  {
+   "name": "Amadou Bor\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Wassa Traore",
+   "note": ""
+  },
+  {
+   "name": "Kadiatou Saounera",
+   "note": ""
+  },
+  {
+   "name": "Sidi Kalane",
+   "note": ""
+  },
+  {
+   "name": "Aboubacar Camara",
+   "note": ""
+  },
+  {
+   "name": "Sekou Kalane",
+   "note": ""
+  },
+  {
+   "name": "A\u00efch\u00e9 Sougouna",
+   "note": ""
+  },
+  {
+   "name": "Alou K\u00e9b\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Ma\u00efmouna Kon\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Seydou Zalla",
+   "note": ""
+  },
+  {
+   "name": "Ousmane Diabat\u00e9",
+   "note": ""
+  },
+  {
+   "name": "Bourama Sacko",
+   "note": ""
+  },
+  {
+   "name": "Alou Badra Bangoura",
+   "note": ""
+  },
+  {
+   "name": "Mamadou Latif Doumbia",
+   "note": ""
+  },
+  {
+   "name": "Cheickn\u00e9 Amada Diakite",
+   "note": ""
+  }
+ ]
+}

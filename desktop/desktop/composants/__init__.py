@@ -21,4 +21,4 @@ from desktop.composants.liste import Spinbox
 from desktop.composants.menu import Menu
 
 # importation du cadre de l'application
-from desktop.composants.cadre import Cadre
+#from desktop.composants.cadre import Cadre

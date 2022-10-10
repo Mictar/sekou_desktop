@@ -1,8 +1,13 @@
+from fileinput import filename
+import glob
 from  pyexcel_ods3 import get_data, save_data
 from desktop.core.config import NOTES_REP, ELEVES_REP, BULLETIN_REP, PAYEMENT_REP
 from collections import OrderedDict
 
+from .config import PAYEMENT_REP_S
 import json
+
+import os
 
 class StoreFile(object):
 
@@ -25,16 +30,35 @@ class StoreFile(object):
                 il represent l nouvelle a enregistrer
         """
         self._liste[list(self._liste.keys())[0]].append(data)
-        #print((data))
-        #print(self._liste)
-        #print(self._classe_name)
-
+        
+    
     def getListe(self) -> OrderedDict:
         """
         """
 
         return (self._liste)
     
+    def getJson(self, file_name):
+        with open(file_name) as fp:
+            return json.load(fp)
+            
+    def saveJson(self, file_name: str, data):
+        """
+        Description:
+        ------------
+            cette fonction est savegarder les donnees
+            au formant json
+        
+        Parametre:
+        ----------
+            file_name: le nom du fichier
+            data: un object
+        """
+        
+        with open(file_name, "w") as fp:
+            json.dump(data, fp, indent=True)
+        
+
     def setListe(self, new_liste: OrderedDict):
         """
         Description:
@@ -56,14 +80,14 @@ class StoreFile(object):
             cette fonction mmet a jour une donnée dans
             le self._liste
         """
-    def save(self):
+    def save(self, file_name=""):
         """
         Description:
         ------------
             cette fonction enregistre le 
         """
         
-        save_data("test.ods", self._liste)
+        save_data(file_name + ".ods" if file_name else "test.ods", self._liste)
 
 class GNotes(StoreFile):
     """
@@ -76,6 +100,41 @@ class GNotes(StoreFile):
         self.classe_name = (f"{NOTES_REP}/listes/liste {classe} année.ods")
 
         super().__init__(self.classe_name)
+    
+    def saveJson(self, data):
+        """
+        Description:
+        ------------
+            cette fonction permet de sauvegarder les notes
+            dans un fichier de formant json
+
+        """
+        matiere = data['header']['matiere']
+        types = data["header"]["type"]
+        classe = data["header"]["classe"]
+        numero = data["header"]["numero"]
+
+        file_name_add = f"{NOTES_REP}/{types}/{matiere}_{classe}_{numero}.json"
+        
+        super().saveJson(file_name_add, data)
+    
+    def getJson(self, types, classe, matiere, numero):
+
+        notes_list = glob.glob(f"{NOTES_REP}/{types}/*.json")
+
+        #print(notes_list)
+
+        file_name = f"{NOTES_REP}/{types}/{matiere}_{classe}_{numero}.json"
+        
+        #print(file_name)
+
+        if file_name  in notes_list:
+
+            with open(file_name) as fp:
+            
+                return json.load(fp)
+
+
     
     
 
@@ -101,10 +160,39 @@ class GPayement(StoreFile):
         payement des elèves
 
     """
-    def __init__(self, classe: int):
+    def __init__(self, classe: int, montant: int = 0):
         classe_name = (f"{PAYEMENT_REP}/listes/liste {classe} année.ods")
-        super().__init__(classe_name)
 
+        self.montant = montant
+
+        super().__init__(classe_name)
+    
+    def getJson(self, mois, classe):
+        """
+        """
+
+        mois_list = glob.glob(f"{PAYEMENT_REP_S}/*.json")
+        #print(mois_list)
+
+        if f"{PAYEMENT_REP_S}/{mois}_{classe}.json"  in mois_list:
+            with open(f"{PAYEMENT_REP_S}/{mois}_{classe}.json") as fp:
+                return json.load(fp)
+
+    def saveJson(self, data):
+        """
+        Description:
+        ------------
+            
+        """
+        file_name_add = f"{PAYEMENT_REP_S}/{data['header']['mois']}_{data['header']['classe']}.json"
+
+        """if os.path.isfile(file_name_add):
+            return False"""
+        super().saveJson(file_name_add, data)
+
+        #return True
+    
+    
 class GEleve(StoreFile):
     """
     Description:
@@ -134,7 +222,7 @@ class GEleve(StoreFile):
         
         ]
         super().addListe(eleve)
-
+    
         #return super().addListe(data)
 
 #test = GNotes(1)

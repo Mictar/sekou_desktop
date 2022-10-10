@@ -20,15 +20,21 @@ class Eleve(Menu):
     def __init__(self, fenetre, menu:Menu):
         super().__init__(menu)
 
-        #add = AddStudiant(fenetre)
-        self.add_cascade(label="Profile", menu=Classes(fenetre, self, Profile))
-        self.add_cascade(label="ajoute", menu=Classes(fenetre, self, AddStudiant))
+        # ajoute du menu profile
+        self.add_cascade(label="Profile", menu=Classes(fenetre,
+                                                         self, 
+                                                         Profile))
+        # ajoute du menu "ajouter eleve"
+        self.add_cascade(label="ajoute", menu=Classes(fenetre,
+                                                       self, 
+                                                       AddStudiant))
+
+        # ajoute du menu notes
         self.add_cascade(label="Notes", menu=Classes(fenetre, self, Notes))
 
+        # ajoute du menu Bulletin
         self.add_cascade(label="Bulletin", menu=Classes(fenetre, self, Bulletin))
 
-
-    
 
 class Profile(GEleve, Form):
     """
@@ -103,11 +109,14 @@ class AddStudiant(ItemEleve, GEleve):
         
         self._entry_user[-1].insert(0, str(self._classe))
 
-        valider=Button(add_studiant,text=' valider ', command=self.valider )
+        valider=Button(add_studiant,text=' valider ',
+                       command=self.valider )
         
-        selection=Button(add_studiant,text='Selection', command=self.selection)
+        selection=Button(add_studiant,text='Selection',
+                        command=self.selection)
 
-        self._cadre = Canvas(add_studiant, width =160, height =160, bg ='white')
+        self._cadre = Canvas(add_studiant, 
+                            width =160, height =160, bg ='white')
         
         
         #self._photo = PhotoImage()
@@ -161,26 +170,36 @@ class Notes(GNotes, Form):
         """
         self._fenetre = fenetre
         self._frame = Frame(fenetre)
+        self._classe = classe
         
         #top = Toplevel(fenetre)
-        self._matiere = MATIERE[classe]
+        #self._matiere = MATIERE[classe]
 
         GNotes.__init__(self, classe)
 
         liste = (self.getListe())
 
-        label = list()
+        self.label = list()
 
         for i in liste.values():
-            for y in i: label.append(" ".join(y))
+            for y in i: self.label.append(" ".join(y))
         
-        del label[0]
+        del self.label[0]
         
-        Form.__init__(self, self._fenetre, label)
+        Form.__init__(self, self._fenetre, self.label)
 
-        self.addColumn()
+        self._valide = None
 
-        #self.addColumn(types="C", text="Payé")
+        self._matiere = None
+        
+        self._coeficient = None
+        
+        self._numero = None
+
+        self._type = None
+
+        self.values = [None]
+
 
 
     def view(self):
@@ -188,41 +207,141 @@ class Notes(GNotes, Form):
         
         """
         
-        #print(self._fenetre.children)
-        #self._frame.pack_forget()
+        self.render(row=3, column=0)
         
-        for i in self._fenetre.children.values(): i.grid_remove()
+        self.header()
 
-        Button(self._fenetre, text="valider", command= lambda : print(self.getValue())).grid(row=0, column=0)
+        self.addColumn()
 
-        self.render(row=1)
-        #self._frame.pack()
         
+    def header(self):
 
-    def viewDevoir(self):
+        # les etiquêtes de l'entête
+        self._valide = Button(self.frame, text="Valider", 
+                             command=self.valide)
+
+        self._matiere = Spinbox(self.frame, 
+                                values=MATIERE[self._classe],
+                                wrap=True, command=self.changeEntry)
+        
+        self._coeficient = Entry(self.frame, )
+        
+        self._numero = Spinbox(self.frame, )
+
+        self._type = Spinbox(self.frame, wrap=True, 
+                            values=[
+                                "Interrogation", 
+                                "Devoir", 
+                                "Composition"
+                                ],
+                            command=self.changeEntry)
+
+        label = ["matière", "coeficient", "numero", "type"]
+
+        for index, i in enumerate(label):
+
+            Label(self.frame, text=i).grid(row=0, column=index + 1)
+        
+        # positoin de l'entête
+        row = 1
+        
+        # mise en position des entêtes de notes
+        self._valide.grid(row=row, column=0)
+
+        self._matiere.grid(row=row, column=1)
+        self._coeficient.grid(row=row, column=2)
+        self._numero.grid(row=row, column=3)
+        self._type.grid(row=row, column=4)
+
+        # les etiquêtes de body
+        body_label = ["Prenom et Nom ", "Note"]
+
+        for index, i in enumerate(body_label):
+            Label(self.frame, text=i).grid(row=2, column=index)
+
+    def valide(self):
         """
         Description:
         ------------
-            cette fonction affiche une interface graphique
-            pour ajoutes les notes des élèves
+            cette fonction enregistrement les donnée de notes des élèves
+
         """
 
+        note, name = self.getValue()
 
-    def viewComposition(self):
+        data = {
+            "header": {
+                "matiere" : self._matiere.get(),
+                "type" : self._type.get(),
+                "coefficient": self._coeficient.get(),
+                "numero": self._numero.get(),
+                "classe": self._classe
+            },
+            "data": [
+                {
+                    "name": i[1][0],
+                    "note": i[0]
+                }
+                for i in zip(note, enumerate(name))
+            ]
+        }
+
+        self.saveJson(data)
+
+    def changeEntry(self):
         """
         Description:
         ------------
-            cette fonction affiche une interface graphique
-            pour ajouter les notes de compositions des élèves
+            cette fonction change les entry
         """
+
+        getData = self.getJson(self._type.get(), self._classe, self._matiere.get(), self._numero.get())
+        
+        if getData:
+            value = [ i['note']
+                    for i in getData["data"]]
+            self.modifierEntry(0, value)
+        else:
+            self.modifierEntry(0, all=True)
     
-    def viewAnnuel(self):
+    def addColumn(self):
         """
         Description:
         ------------
-            cette fonction affiche une interfaces graphique
-            pour ajouter les notes annuels des élèves
+            cette fonction affiche les colonnes accesoire dans le body
+
         """
+        # index 0 contient des entry pour representé les montants
+
+        self.values[0] = [ Entry(self.frame) for i in range(len(self.label))]
+        
+        
+        for index, i in enumerate(self.values[0]): i.grid(row=index + 3 , column=1)
+
+
+    
+    def modifierEntry(self, pos, data=[], all=False):
+        """
+        
+        """
+        if all:
+            for i in self.values[pos]:
+                i.delete(0, "end")
+                i.insert(0, "")
+
+        for i, value in zip(self.values[pos], data):
+            i.delete(0, "end")
+            i.insert(0, value)
+
+    def getValue(self) -> list:
+        
+        label = self.label
+
+        data = [ [ y.get() for y in i ]for i in self.values]
+
+        data.append(label)
+
+        return (data)
 
 class Bulletin(GBulletin):
     """
@@ -242,21 +361,3 @@ class Bulletin(GBulletin):
             cette fonction permet d'afficher le bulletin
             des élèves 
         """
-    
-    def buildPdf(self):
-        """
-        Description:
-        ------------
-            cette fonction est charger de produire le bulletin
-            des élève en formant pdf
-        """
-    
-    def buildXlsl(self):
-        """
-        Description:
-        ------------
-            cette fonction est charger de produire le bulletin
-            des élèves en format excel
-
-        """
-

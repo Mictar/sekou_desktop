@@ -1,5 +1,8 @@
-from tkinter import Checkbutton
+from tkinter import BooleanVar, Checkbutton
 
 class Checkbutton(Checkbutton):
-
-    def get(self) : pass
+    def __init__(self, root, text=""):
+        self._values = BooleanVar()
+        super().__init__(root, text=text, variable=self._values)
+    def get(self):
+        return self._values.get()

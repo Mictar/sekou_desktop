@@ -5,7 +5,7 @@ CORE_REP = pathlib.Path(__file__).parent
 
 NOTES_REP = f"{CORE_REP}/data/notes"
 ELEVES_REP = f"{CORE_REP}/data/eleves"
-#PAYEMENT_REP = f"{CORE_REP}/data/payements"
+PAYEMENT_REP_S = f"{CORE_REP}/data/payements"
 BULLETIN_REP = f"{CORE_REP}/data/bulletins"
 
 PAYEMENT_REP = NOTES_REP
@@ -41,3 +41,7 @@ USER_INFORMATION = {
 MOIS = ["octobre", "novembre", "decembre",
         "janvier", "fevrier", "mars", "avril",
         "mais", "juin"]
+
+MONTANT = {
+        i : 2000 for i in range(1, 10)
+}

@@ -1,80 +1,39 @@
 
-from tkinter import Checkbutton, Entry, Label, W, Tk, Toplevel
+from tkinter import Label, W, Tk
 
-from desktop.composants.checkbuton import Checkbutton
 
-class Form(object):
+from desktop.composants.cadre import App, ScrollbarFrame
 
-    def __init__(self,fenetre: Tk, champs: list) -> None:
+class Form():
+    frame = None
+    def __init__(self, fenetre: Tk, champs: list) -> None:
         """
         
         """
-        # creation des entrée
-        #self._fenetre = Toplevel(self._fenetre)
+        
         self._fenetre = fenetre
 
-        #self._entre = [ Entry(self._fenetre) for i in range(len(champs))]
+        self.champs = champs
         
-        self._values = list()
-
-        self._label = [ Label(self._fenetre, text=text) for text in champs ]
-        
-
-    def render(self, row=0, column=1):
+    def render(self, row=0, column=0, ):
         """
         Description:
         ------------
             cette fonction assure le rendu du formulaire
         """
         
-        # ajoute de la premiere valeur du champ
-        self.grid(self._label, row=row, column=column)
+        sbf = ScrollbarFrame(self._fenetre)
+        self._fenetre.grid_rowconfigure(0, weight=1)
+        self._fenetre.grid_columnconfigure(0, weight=1)
+        sbf.grid(row=0, column=0, sticky='nsew')
 
-        # ajoute des autre champ 
         
-        for index, i in enumerate(self._values): self.grid(i, column=index + 2 + column, row= row)
+        self.frame = sbf.scrolled_frame
+
+        
+        for index, i in enumerate(self.champs):
+            Label(self.frame, text=i).grid(row= row + index, column=column)
+        
+
+        
     
-    def grid(self, composant, row=0, column=1):
-        """
-        
-        """
-        for index, i in enumerate(composant):
-            i.grid(row=index + row, column=column, sticky="W")
-
-    def addColumn(self, types="E", text=None, texts=[]):
-        """
-        Description:
-        ------------
-            cette fonction ajoutter de nouveau colonne 
-            au rendu de la formulaire
-        """
-        if types == "E":
-            self._values.append([Entry(self._fenetre) for i in range(len(self._label))])
-        
-        elif types == "C":
-            
-            self._values.append([Checkbutton(self._fenetre, text=text) for i in range(len(self._label))])
-        
-        elif types == "L":
-            self._values.append([Label(self._fenetre, text=text) for i in texts])
-
-    def decalage(initial: int, fin: int):
-        """
-        Description:
-        ------------
-            cette fonction decale une colonne entiere
-            dans une autre colonne
-        """
-    
-    def getValue(self) -> dict:
-        """
-        Description:
-        ------------
-            cette fonction retourne les valeurs des champs
-
-        """
-        label = [i["text"] for i in self._label ]
-        data = [ [ y.get() for y in i ]for i in self._values]
-        data.append(label)
-
-        print(data)
