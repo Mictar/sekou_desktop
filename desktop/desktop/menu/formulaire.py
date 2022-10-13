@@ -23,23 +23,17 @@ class Releve(GEleve, Form):
         # definition de la classe
         self._classe = classe
 
-        liste = (self.getListe())
+        self.liste = (self.getListe())
 
         self._exporter = None
+         
+        self._heade  = list(self.liste.keys())
 
-        self.label = list()
 
-        for i in liste.values():
-            
-            for y in i:
-                self.label.append(list(y)) if list(y) else None
-                        
-        self._heade  = self.label[0].copy()
-
-        del self.label[0]
-
-        self.values = [None for i in range(len(self.label[0]))]
+        #self.values = [None for i in range(len(self.label[0]))]
         
+        self.values = []
+
         Form.__init__(self, self._fenetre, )
     
     def view(self):
@@ -84,15 +78,33 @@ class Releve(GEleve, Form):
             dans sur l'ecran
 
         """
-        for index, value in enumerate(self.label):
+        data = self.liste.keys()
+
+        for i in range(len(self.liste["Noms"])):
+            el = []
+            for y in data:
+                el.append(self.liste[y][i])
+
+            entre = [ Entry(self.frame) for i in range(len(el))]
+
+            for (col, y) , value in zip(enumerate(entre), el):
+                #print(value)
+                y.insert(0, value)
+
+                y.grid(row=i + 3, column=col)
+
+            self.values.append(entre)
+
+
+
+        """for index, value in enumerate(self.label):
             
-            entre = [ Entry(self.frame) for i in range(len(value))]
 
             for col, i in enumerate(entre):
 
-                i.insert(0, value[col])
+                #i.insert(0, value[col])
 
                 i.grid(row=index + 3, column=col)
 
-            self.values.append(entre)
+            self.values.append(entre)"""
     

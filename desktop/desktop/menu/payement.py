@@ -1,12 +1,18 @@
 from datetime import date
 from tkinter import Button, Canvas, Label, Menu, Scrollbar, Spinbox, Tk, Entry, Toplevel
+
 from menu.classes import Classes
 
 from desktop.composants import Checkbutton
 
 from desktop.core.core import GPayement
 
+from tkinter.filedialog import askopenfilename, asksaveasfile
+
 from menu.forms import Form
+
+import pandas as pd
+import numpy as np
 
 from desktop.core.config import MOIS, MONTANT
 
@@ -34,12 +40,12 @@ class Paye(GPayement, Form):
 
         liste = (self.getListe())
 
-        self.label = list()
-
-        for i in liste.values():
+        self.label = [ f"{str(i[0])} {str(i[1])}" for i in zip(liste["Prenoms"], liste["Noms"])]
+        
+        """for i in liste.values():
             for y in i: self.label.append(" ".join(y))
         
-        del self.label[0]
+        del self.label[0]"""
         
         Form.__init__(self, self._fenetre, self.label)
 
@@ -127,7 +133,95 @@ class Paye(GPayement, Form):
         """
         top = Toplevel(self._fenetre)
 
-        top.geometry("400x400")
+        data = pd.DataFrame()
+
+        check = [ Checkbutton(top, text="Tout"),
+                    Checkbutton(top, text="Non Paye"),
+                    Checkbutton(top, text="Paye")
+        ]
+
+        for index, i in enumerate(check):
+            i.grid(row=0, column=index)
+
+        def valide():
+            file_name = asksaveasfile(mode="w", initialdir="~/Bureau", initialfile="nouveau.ods")
+            #file_name.close()
+            montant, validation, name = self.getValue()
+            write = pd.DataFrame()
+            write["N° Elèves"] = [ i for i in range(len(name))]
+            write["Prenoms"] = None
+            write["Noms"] = None
+            write["Classe"] = [ self._classe for i in range(len(name))]
+
+
+            # tout
+
+            if check[0].get():
+                
+                write["Prenoms"] = [" ".join(i.split(" ")[:-1]) for i in name]
+                
+                write["Noms"] = [ " ".join(i.split(" ")[1:]) for i in name]
+                
+
+            # non paye
+            elif check[1].get():
+                
+                prenoms = [ " ".join(i.split(" ")[:-1]) for i, mon in zip(name, montant) if mon !=self._montant.get() ]
+
+                noms = [ " ".join(i.split(" ")[1:]) for i, mon in zip(name, montant) if mon !=self._montant.get() ]
+
+                montan = [ mon for i, mon in zip(name, montant) if mon !=self._montant.get() ]
+                data = {
+                        "N° Elèves": [ i for i in range(len(prenoms))],
+                        "Prenoms": prenoms,
+                        "Noms": noms,
+                        "Montant": montan,
+                        "Classe" : [ self._classe for i in range(len(prenoms))]
+
+
+                    }
+
+                write = pd.DataFrame(data)
+
+                #write = write.transpose()
+                
+                
+            # payé
+            elif check[2].get():
+                prenoms = []
+                noms = []
+                mont = []
+                for nae, mon, val in zip(name, montant, validation):
+                    if mon == self._montant.get() or val:
+                        #print(nae, mon )
+                        prenoms.append(" ".join(nae.split(" ")[:-1]))
+
+                        noms.append(" ".join(nae.split(" ")[1:]))
+
+                        mont.append(mon)
+
+                data = {
+                        "N° Elèves": [ i for i in range(len(prenoms))],
+                        "Prenoms": prenoms,
+                        "Noms": noms,
+                        "Montant": mont,
+                        "Classe" : [ self._classe for i in range(len(prenoms))]
+
+
+                    }
+                write = pd.DataFrame(data)
+
+            self.save(write, file_name.name if file_name else "nouveau.ods")
+
+
+
+        Button(top, text="valider", command=valide).grid(row=1, column=1)
+                
+                
+        
+
+
+
 
     def addColumn(self):
         """

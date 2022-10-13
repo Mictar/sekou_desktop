@@ -4,20 +4,28 @@ from  pyexcel_ods3 import get_data, save_data
 from desktop.core.config import NOTES_REP, ELEVES_REP, BULLETIN_REP, PAYEMENT_REP
 from collections import OrderedDict
 
+import pandas as pd
+
 from .config import PAYEMENT_REP_S
 import json
 
 import os
 
+
 class StoreFile(object):
 
-    def __init__(self, file_name):
+    def __init__(self, file_name: str):
         """
+
         """
-        self._liste = get_data(file_name)
+        #self._liste = get_data(file_name)
+
+        self._file_name = file_name
+
+        #self._liste = pd.read_excel(file_name,engine="odf")
 
         self._modifier = False
-
+    
     def addListe(self, data: list):
         """
         Description:
@@ -29,14 +37,15 @@ class StoreFile(object):
             data : une liste
                 il represent l nouvelle a enregistrer
         """
+        
         self._liste[list(self._liste.keys())[0]].append(data)
         
     
-    def getListe(self) -> OrderedDict:
+    def getListe(self) -> pd.DataFrame:
         """
         """
 
-        return (self._liste)
+        return pd.read_excel(self._file_name, engine="odf")
     
     def getJson(self, file_name):
         with open(file_name) as fp:
@@ -80,14 +89,16 @@ class StoreFile(object):
             cette fonction mmet a jour une donnée dans
             le self._liste
         """
-    def save(self, file_name=""):
+    def save(self, data: pd.DataFrame, file_name="", ):
         """
         Description:
         ------------
             cette fonction enregistre le 
         """
+
+        data.to_excel(file_name, index=False, engine="odf")
         
-        save_data(file_name + ".ods" if file_name else "test.ods", self._liste)
+        
 
 class GNotes(StoreFile):
     """
@@ -217,11 +228,12 @@ class GEleve(StoreFile):
             data["nom"],
             data["prenom de la mère"],
             data["nom de la mère"],
-            data["contact"],
-            data["adresse"]
+            #data["contact"],
+            #data["adresse"]
         
         ]
-        super().addListe(eleve)
+        
+        #super().addListe(eleve)
     
         #return super().addListe(data)
 

@@ -50,24 +50,17 @@ class Profile(GEleve, Form):
         self._user_information = USER_INFORMATION
 
 
-        liste = (self.getListe())
+        self.liste = (self.getListe())
 
-        self.label = list()
-
-
-        for i in liste.values():
-            
-            for y in i:
-                self.label.append(list(y)) if list(y) else None
-                
-                #self.label.append(" ".join([str(z) for z in y ]))
-
-                
+        self.label = [ f"{str(i[0])} {str(i[1])}" for i in zip(self.liste["Prenoms"], self.liste["Noms"])]
+        #print(self.label)
+        """for i in liste.values():
+            for y in i: self.label.append(" ".join(y))
         
-        del self.label[0]
+        del self.label[0]"""
         #print(self.label)
         
-        Form.__init__(self, self._fenetre, [ f"{i[2]} {i[3]}" for i in self.label])
+        Form.__init__(self, self._fenetre, self.label)
     
     def view(self):
         """
@@ -76,8 +69,17 @@ class Profile(GEleve, Form):
         self.addColumn()
 
     def addColumn(self):
+        data = self.liste.keys()
+        values = []
+
+        for i in range(len(self.liste["Noms"])):
+            el = []
+            for y in data:
+                el.append(self.liste[y][i])
+            values.append(el)
+
         self._profile = [Button(self.frame, text="voir",
-                                command=self.eleve(i)) for i in self.label]
+                                command=self.eleve(i)) for i in values]
 
         for index, i in enumerate(self._profile):
 
@@ -86,6 +88,12 @@ class Profile(GEleve, Form):
     def eleve(self, name: list):
 
         def el():
+            #global key
+            #for i in self.key: print(self.liste[i])
+            
+            """for _, i in self.liste.items():
+                for y in i: print(y)"""
+            
             add_studiant =Toplevel(self._fenetre)
             add_studiant.resizable(0, 0)
 
@@ -106,9 +114,12 @@ class Profile(GEleve, Form):
 
             index = {0: 2, 1 : 3, 2 : 6, 3: 5, 4 : 4,
                     5: 7, 6: 8, 8 : 1, 7 : 9}
-            
+
             for key, value in index.items():
-                self._entry_user[key].insert(0, str(name[value]))
+                try:
+                    #print(key, name[value])
+                    self._entry_user[key].insert(0, str(name[value]))
+                except: pass
             
             valider=Button(add_studiant,text=' valider ',
                         command=self.valider )
@@ -244,8 +255,19 @@ class AddStudiant(ItemEleve, GEleve):
         eleve = { key: value.get() for value, key \
             in zip(self._entry_user, self._user_information.keys())}
         
-        self.addListe(eleve)
-        self.save()
+        
+        data = self.getListe()
+
+        #print(data)
+
+        # imcorrect code
+        keys = list(data.keys())
+        for i, el in zip(keys, eleve):
+            data[i].append(str(el))
+
+        #self.addListe(eleve)
+        
+        #self.save(data, "~/Bureau/test.ods")
 
 
     def cli(self):
@@ -273,13 +295,12 @@ class Notes(GNotes, Form):
 
         liste = (self.getListe())
 
-        self.label = list()
-
-        for i in liste.values():
+        self.label = [ f"{str(i[0])} {str(i[1])}" for i in zip(liste["Prenoms"], liste["Noms"])]
+        
+        """for i in liste.values():
             for y in i: self.label.append(" ".join(y))
         
-        del self.label[0]
-        
+        del self.label[0]"""
         Form.__init__(self, self._fenetre, self.label)
 
         self._valide = None
