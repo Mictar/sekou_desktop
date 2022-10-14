@@ -8,22 +8,22 @@
  "data": [
   {
    "name": 0,
-   "montant": "3500",
+   "montant": "",
    "valide": false
   },
   {
    "name": 1,
-   "montant": "3500",
+   "montant": "",
    "valide": false
   },
   {
    "name": 2,
-   "montant": "3500",
+   "montant": "",
    "valide": false
   },
   {
    "name": 3,
-   "montant": "1500",
+   "montant": "",
    "valide": false
   },
   {
@@ -58,7 +58,7 @@
   },
   {
    "name": 10,
-   "montant": "1000",
+   "montant": "",
    "valide": false
   },
   {

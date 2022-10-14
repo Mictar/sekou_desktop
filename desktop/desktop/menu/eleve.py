@@ -15,6 +15,7 @@ from desktop.core.config import MATIERE, USER_INFORMATION
 
 from menu.forms import Form
 
+import pandas as pd
 DEBUG = 0
 
 class Eleve(Menu):
@@ -257,26 +258,35 @@ class AddStudiant(ItemEleve, GEleve):
         
         
         data = self.getListe()
-
-        #print(data)
+        #print(list(data.keys()))
+        data_eleve =  {
+            "N °ordre": len(data['N °ordre']),
+            'N° Ml': "",
+            "Noms": eleve['nom'],
+            "Prenoms": eleve['prenom'],
+            'Sexe' : eleve["sexe"],
+            'Lieu de naissance' : eleve["lieu de naissance"],
+            'Date de naissance': eleve["date de naissance"],
+            'Prenom du père': eleve["prenom du père"], 
+            'Nom du père' : eleve["nom"], 
+            'Prenom de la mere': eleve["prenom de la mère"],
+            'Nom de la mère' : eleve["nom de la mère"],
+        }
+        data = data.append(data_eleve, ignore_index=True)
+        #save = pd.concat([data, data_eleve], ignore_index=True)
+        
+        self.save(data)
+        data.to_excel("test1.ods", engine="odf")
+        #print(save)
 
         # imcorrect code
-        keys = list(data.keys())
+        """keys = list(data.keys())
         for i, el in zip(keys, eleve):
-            data[i].append(str(el))
+            data[i].append(str(el))"""
 
         #self.addListe(eleve)
         
         #self.save(data, "~/Bureau/test.ods")
-
-
-    def cli(self):
-        """
-        Description:
-        ------------
-            cette fonction fournie une interface en lignes de commande
-            pour ajouter les élèves
-        """
 
 class Notes(GNotes, Form):
     def __init__(self, fenetre, classe):

@@ -146,9 +146,6 @@ class GNotes(StoreFile):
                 return json.load(fp)
 
 
-    
-    
-
 class GBulletin(StoreFile):
     """
     Description:
@@ -232,6 +229,9 @@ class GEleve(StoreFile):
             #data["adresse"]
         
         ]
+    def save(self, data: pd.DataFrame):
+        
+        super().save(data, self._classe_name)
         
         #super().addListe(eleve)
     
